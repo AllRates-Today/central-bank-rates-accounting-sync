@@ -26,7 +26,7 @@ Options
   --json        rate: raw JSON only (default); qbo/xero-csv: machine-readable summary on stdout
 
 Environment (.env in the working directory is read if present)
-  ALLRATESTODAY_API_KEY   free key from https://allratestoday.com/signup/ ; without it the keyless endpoint is used
+  ALLRATESTODAY_API_KEY   free key from https://allratestoday.com/register/ ; without it the keyless endpoint is used
   QBO_ACCESS_TOKEN  QBO_REALM_ID  QBO_SANDBOX
   XERO_ACCESS_TOKEN XERO_TENANT_ID
 `;
@@ -171,7 +171,7 @@ async function main() {
     console.error(
       open
         ? '[allratestoday] --open: keyless evaluation endpoint, latest table only'
-        : '[allratestoday] no ALLRATESTODAY_API_KEY set: using the keyless evaluation endpoint (free key: https://allratestoday.com/signup/)'
+        : '[allratestoday] no ALLRATESTODAY_API_KEY set: using the keyless evaluation endpoint (free key: https://allratestoday.com/register/)'
     );
   }
   switch (cmd) {

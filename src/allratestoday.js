@@ -1,7 +1,7 @@
 // AllRatesToday central-bank rates client. Native fetch, no dependencies.
 //
 // Two endpoints are used, both documented at https://allratestoday.com/docs/#central-bank
-//   keyed   GET /api/v1/central-bank/{bank}/latest[?source=X&target=Y]   (header X-API-Key)
+//   keyed   GET /api/v1/central-bank/{bank}/latest[?source=X&target=Y]   (header Authorization: Bearer <key>)
 //   keyless GET /api/open/central-bank/{bank}                             (table only, evaluation copy)
 //
 // With a key the pair endpoint resolves direction server-side ("1 source = rate target")
@@ -59,7 +59,7 @@ export function createClient({ apiKey, open = false, baseUrl = BASE_URL } = {}) 
     const url = keyless
       ? `${baseUrl}/api/open/central-bank/${encodeURIComponent(code)}`
       : `${baseUrl}/api/v1/central-bank/${encodeURIComponent(code)}/latest`;
-    const body = await getJson(url, keyless ? {} : { 'X-API-Key': apiKey });
+    const body = await getJson(url, keyless ? {} : { Authorization: `Bearer ${apiKey}` });
     return {
       bank: body.bank,
       name: body.name ?? body.attribution?.source ?? code.toUpperCase(),
@@ -89,7 +89,7 @@ export function createClient({ apiKey, open = false, baseUrl = BASE_URL } = {}) 
     if (!keyless) {
       const url = `${baseUrl}/api/v1/central-bank/${encodeURIComponent(code)}/latest?source=${source}&target=${target}`;
       try {
-        const body = await getJson(url, { 'X-API-Key': apiKey });
+        const body = await getJson(url, { Authorization: `Bearer ${apiKey}` });
         return { ...body, keyless: false };
       } catch (err) {
         if (err instanceof AllRatesTodayError && err.status === 404) return null;

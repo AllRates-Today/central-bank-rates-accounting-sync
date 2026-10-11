@@ -52,7 +52,7 @@ All configuration is environment variables; a `.env` in the working directory is
 
 | Variable | Purpose | Where to get it |
 |---|---|---|
-| `ALLRATESTODAY_API_KEY` | Keyed access: server-side pair resolution, dated tables, history. Unset → keyless evaluation endpoint. | Free key, no card: <https://allratestoday.com/signup/> · official-rates plan: <https://allratestoday.com/pricing/#official> |
+| `ALLRATESTODAY_API_KEY` | Keyed access: server-side pair resolution, dated tables, history. Unset → keyless evaluation endpoint. | Free key, no card: <https://allratestoday.com/register/> · official-rates plan: <https://allratestoday.com/pricing/#official> |
 | `QBO_ACCESS_TOKEN` | OAuth 2.0 bearer token for the QuickBooks Online Accounting API | [Intuit OAuth 2.0 guide](https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0) · quick test tokens from the [OAuth Playground](https://developer.intuit.com/app/developer/playground) |
 | `QBO_REALM_ID` | The company id (`realmId`) returned with the token | same |
 | `QBO_SANDBOX` | `1` → `https://sandbox-quickbooks.api.intuit.com`, otherwise `https://quickbooks.api.intuit.com` | [Sandbox companies](https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/manage-your-sandboxes) |
@@ -66,7 +66,7 @@ Flags: `--open` forces the keyless endpoint even with a key set; `--dry-run` (qb
 
 | | Keyed (`ALLRATESTODAY_API_KEY`) | Keyless (`--open` or no key) |
 |---|---|---|
-| Endpoint | `GET /api/v1/central-bank/{bank}/latest?source=USD&target=EUR` (`X-API-Key` header) | `GET /api/open/central-bank/{bank}` (latest table only) |
+| Endpoint | `GET /api/v1/central-bank/{bank}/latest?source=USD&target=EUR` (`Authorization: Bearer` header) | `GET /api/open/central-bank/{bank}` (latest table only) |
 | Direction | Resolved server-side: `1 source = rate target` | Same preference order, computed locally from the table |
 | Dated tables / history | yes (`/api/v1/central-bank/{bank}/{YYYY-MM-DD}`) | no |
 | Use for | production bookkeeping | evaluation |
@@ -264,7 +264,7 @@ rate type, and nothing is blended across publishers.
 | Endpoint reference | <https://allratestoday.com/docs/#central-bank> |
 | QuickBooks Online guide | <https://allratestoday.com/docs/integrations/quickbooks/> |
 | Xero guide | <https://allratestoday.com/docs/integrations/xero/> |
-| Free API key | <https://allratestoday.com/signup/> |
+| Free API key | <https://allratestoday.com/register/> |
 | Official Rates Business plan | <https://allratestoday.com/pricing/#official> |
 
 > Official rates as published by the named central bank. On weekends/holidays the most recent published rate_date is returned.
