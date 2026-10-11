@@ -1,0 +1,54 @@
+{
+  "name": "@allratestoday/central-bank-rates-accounting-sync",
+  "version": "0.1.0",
+  "description": "Push official central-bank exchange rates from the AllRatesToday API into QuickBooks Online (ExchangeRate entity) and shape them for Xero (CurrencyRate on invoices and bills, plus CSV export).",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "bin": {
+    "cb-accounting-sync": "bin/cli.js"
+  },
+  "main": "src/allratestoday.js",
+  "exports": {
+    ".": "./src/allratestoday.js",
+    "./quickbooks": "./src/quickbooks.js",
+    "./xero": "./src/xero.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE",
+    ".env.example"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "check": "node --check bin/cli.js && node --check src/allratestoday.js && node --check src/quickbooks.js && node --check src/xero.js",
+    "rate": "node bin/cli.js rate",
+    "qbo": "node bin/cli.js qbo",
+    "xero-csv": "node bin/cli.js xero-csv"
+  },
+  "keywords": [
+    "exchange-rates",
+    "central-bank",
+    "official-rates",
+    "quickbooks",
+    "quickbooks-online",
+    "xero",
+    "accounting",
+    "multicurrency",
+    "ecb",
+    "allratestoday"
+  ],
+  "author": "AllRatesToday",
+  "homepage": "https://allratestoday.com/docs/integrations/quickbooks/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AllRates-Today/central-bank-rates-accounting-sync"
+  },
+  "bugs": {
+    "url": "https://github.com/AllRates-Today/central-bank-rates-accounting-sync/issues"
+  }
+}
