@@ -47,7 +47,7 @@ async function getJson(url, headers = {}) {
 /**
  * Create a client.
  * @param {{ apiKey?: string, open?: boolean, baseUrl?: string }} opts
- *   apiKey  - free key from https://allratestoday.com/signup/ ; omit for keyless mode
+ *   apiKey  - free key from https://allratestoday.com/register/ ; omit for keyless mode
  *   open    - force the keyless evaluation endpoint even when a key is set
  */
 export function createClient({ apiKey, open = false, baseUrl = BASE_URL } = {}) {
