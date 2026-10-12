@@ -282,6 +282,8 @@ const p = await art.pair({ bank: 'boe', source: 'GBP', target: 'USD' });
 console.log(p.rate, p.rate_date, p.method);       // 1 GBP = p.rate USD
 ```
 
+Agents that need dated tables or history beyond the keyless endpoint can self-issue a trial key: `POST https://allratestoday.com/api/agent/keys` (send `Content-Type: application/json`) returns a 100-call key valid 7 days, no account needed; the MCP servers expose the same as `request_trial_key`.
+
 ## 📜 License
 
 [MIT](LICENSE) © AllRatesToday. Rates remain the property of the publishing central banks and tax authorities; the
