@@ -51,7 +51,7 @@ All configuration is environment variables; a `.env` in the working directory is
 
 | Variable | Purpose | Where to get it |
 |---|---|---|
-| `ALLRATESTODAY_API_KEY` | Keyed access: server-side pair resolution, dated tables, history. Unset → keyless evaluation endpoint. | Free key, no card: <https://allratestoday.com/register/> · official-rates plan: <https://allratestoday.com/pricing/#official> |
+| `ALLRATESTODAY_API_KEY` | Keyed access: server-side pair resolution (any key); dated tables and history (paid plans only). Unset → keyless evaluation endpoint. | Free key, no card: <https://allratestoday.com/register/> · official-rates plan: <https://allratestoday.com/pricing/#official> |
 | `QBO_ACCESS_TOKEN` | OAuth 2.0 bearer token for the QuickBooks Online Accounting API | [Intuit OAuth 2.0 guide](https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0) · quick test tokens from the [OAuth Playground](https://developer.intuit.com/app/developer/playground) |
 | `QBO_REALM_ID` | The company id (`realmId`) returned with the token | same |
 | `QBO_SANDBOX` | `1` → `https://sandbox-quickbooks.api.intuit.com`, otherwise `https://quickbooks.api.intuit.com` | [Sandbox companies](https://developer.intuit.com/app/developer/qbo/docs/develop/sandboxes/manage-your-sandboxes) |
@@ -67,7 +67,7 @@ Flags: `--open` forces the keyless endpoint even with a key set; `--dry-run` (qb
 |---|---|---|
 | Endpoint | `GET /api/v1/central-bank/{bank}/latest?source=USD&target=EUR` (`Authorization: Bearer` header) | `GET /api/open/central-bank/{bank}` (latest table only) |
 | Direction | Resolved server-side: `1 source = rate target` | Same preference order, computed locally from the table |
-| Dated tables / history | yes (`/api/v1/central-bank/{bank}/{YYYY-MM-DD}`) | no |
+| Dated tables / history | paid plans only (`/api/v1/central-bank/{bank}/{YYYY-MM-DD}`); free and trial keys get 403 | no |
 | Use for | production bookkeeping | evaluation |
 
 ## 🧾 QuickBooks Online
@@ -281,7 +281,7 @@ const p = await art.pair({ bank: 'boe', source: 'GBP', target: 'USD' });
 console.log(p.rate, p.rate_date, p.method);       // 1 GBP = p.rate USD
 ```
 
-Agents that need dated tables or history beyond the keyless endpoint can self-issue a trial key: `POST https://allratestoday.com/api/agent/keys` (send `Content-Type: application/json`) returns a 100-call key valid 7 days, no account needed; the MCP servers expose the same as `request_trial_key`.
+Agents that need keyed latest tables or crosses beyond the keyless endpoint can self-issue a trial key: `POST https://allratestoday.com/api/agent/keys` (send `Content-Type: application/json`) returns a 100-call key valid 7 days, no account needed (dated tables and history are paid-plan only, on free and trial keys alike); the MCP servers expose the same as `request_trial_key`.
 
 ## 📜 License
 
