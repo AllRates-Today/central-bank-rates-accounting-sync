@@ -52,6 +52,17 @@ async function getJson(url, headers = {}) {
  */
 export function createClient({ apiKey, open = false, baseUrl = BASE_URL } = {}) {
   const keyless = open || !apiKey;
+  let catalogue; // code -> publisher name, from the keyless /api/open/central-banks list
+
+  /** Publisher name for a bank code (the open table carries only an attribution line). */
+  async function bankName(code) {
+    if (!catalogue) {
+      catalogue = getJson(`${baseUrl}/api/open/central-banks`)
+        .then((body) => new Map((body.sources || []).map((s) => [String(s.code).toLowerCase(), s.name])))
+        .catch(() => new Map());
+    }
+    return (await catalogue).get(code);
+  }
 
   /** Latest published table for a bank. Normalised to the keyed shape. */
   async function latestTable(bank) {
@@ -62,7 +73,7 @@ export function createClient({ apiKey, open = false, baseUrl = BASE_URL } = {}) 
     const body = await getJson(url, keyless ? {} : { Authorization: `Bearer ${apiKey}` });
     return {
       bank: body.bank,
-      name: body.name ?? body.attribution?.source ?? code.toUpperCase(),
+      name: body.name ?? (await bankName(code)) ?? code.toUpperCase(),
       rate_date: body.rate_date,
       age_days: body.age_days,
       stale: Boolean(body.stale),

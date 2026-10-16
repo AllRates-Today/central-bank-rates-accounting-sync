@@ -1,6 +1,5 @@
 # Central Bank Rates → QuickBooks Online & Xero
 
-[![npm](https://img.shields.io/badge/npm-%40allratestoday%2Fcentral--bank--rates--accounting--sync-cb3837?logo=npm)](https://www.npmjs.com/package/@allratestoday/central-bank-rates-accounting-sync)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](package.json)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -113,11 +112,11 @@ Read back what QuickBooks holds for a currency and date:
 GET /v3/company/{realmId}/exchangerate?sourcecurrencycode=USD&asofdate=2026-10-09&minorversion=75
 ```
 
-From code:
+From code (not published on npm: import from a clone, paths relative to the repo root):
 
 ```js
-import { createClient } from '@allratestoday/central-bank-rates-accounting-sync';
-import { createQuickBooksClient, buildExchangeRatePayload } from '@allratestoday/central-bank-rates-accounting-sync/quickbooks';
+import { createClient } from './src/allratestoday.js';
+import { createQuickBooksClient, buildExchangeRatePayload } from './src/quickbooks.js';
 
 const art = createClient({ apiKey: process.env.ALLRATESTODAY_API_KEY });
 const qbo = createQuickBooksClient({
@@ -147,8 +146,8 @@ base currency**, so for a GBP organisation raising a EUR invoice you need EUR pe
 Helper for one document:
 
 ```js
-import { createClient } from '@allratestoday/central-bank-rates-accounting-sync';
-import { officialCurrencyRate, invoiceCurrencyFields } from '@allratestoday/central-bank-rates-accounting-sync/xero';
+import { createClient } from './src/allratestoday.js';
+import { officialCurrencyRate, invoiceCurrencyFields } from './src/xero.js';
 
 const art = createClient({ apiKey: process.env.ALLRATESTODAY_API_KEY });
 const r = await officialCurrencyRate(art, { bank: 'boe', baseCurrency: 'GBP', documentCurrency: 'EUR' });
@@ -273,10 +272,10 @@ rate type, and nothing is blended across publishers.
 
 The same data is available to agents over MCP without a key: hosted Streamable HTTP endpoint
 `https://allratestoday.com/api/mcp` (tools for official rates, bank lists, rate history and publication calendars).
-Point Claude Desktop, Cursor or any MCP client at that URL, or let an agent call this tool's modules directly:
+Point Claude Desktop, Cursor or any MCP client at that URL, or let an agent call this tool's modules directly (not published on npm: import from a clone, paths relative to the repo root):
 
 ```js
-import { createClient } from '@allratestoday/central-bank-rates-accounting-sync';
+import { createClient } from './src/allratestoday.js';
 const art = createClient();                       // keyless
 const p = await art.pair({ bank: 'boe', source: 'GBP', target: 'USD' });
 console.log(p.rate, p.rate_date, p.method);       // 1 GBP = p.rate USD
