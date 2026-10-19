@@ -283,6 +283,14 @@ console.log(p.rate, p.rate_date, p.method);       // 1 GBP = p.rate USD
 
 Agents that need keyed latest tables or crosses beyond the keyless endpoint can self-issue a trial key: `POST https://allratestoday.com/api/agent/keys` (send `Content-Type: application/json`) returns a 100-call key valid 7 days, no account needed (dated tables and history are paid-plan only, on free and trial keys alike); the MCP servers expose the same as `request_trial_key`.
 
+## 🔗 Links
+
+- [API Documentation](https://allratestoday.com/developers)
+- [Register (Free)](https://allratestoday.com/register)
+- [Dashboard](https://allratestoday.com/profile)
+- [Status](https://allratestoday.com/status)
+- [GitHub](https://github.com/AllRates-Today/central-bank-rates-accounting-sync)
+
 ## 📜 License
 
 [MIT](LICENSE) © AllRatesToday. Rates remain the property of the publishing central banks and tax authorities; the
