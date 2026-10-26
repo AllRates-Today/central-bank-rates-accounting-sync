@@ -289,6 +289,7 @@ Agents that need keyed latest tables or crosses beyond the keyless endpoint can 
 - [Register (Free)](https://allratestoday.com/register)
 - [Dashboard](https://allratestoday.com/profile)
 - [Status](https://allratestoday.com/status)
+- [Postman collection](https://allratestoday.com/postman/)
 - [GitHub](https://github.com/AllRates-Today/central-bank-rates-accounting-sync)
 
 ## 📜 License
