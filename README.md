@@ -23,7 +23,7 @@ Plain Node.js ESM, native `fetch`, zero dependencies.
 | `cb-accounting-sync xero-csv --bank rbi --home INR` | Xero | CSV of `CurrencyRate` values (document-currency units per 1 base unit, 6 decimals) for every currency in the bank's table, ready for bulk invoice/bill creation or import. |
 | `cb-accounting-sync rate --bank ecb --source USD --target EUR` | anywhere | One resolved pair as JSON: `1 USD = rate EUR`, with `derived`/`method` telling you whether the bank printed that number. |
 
-Works with 121 central banks and 3 tax authorities (ECB, Bank of England, Federal Reserve H.10, RBI, HMRC, US Treasury, ...). Bank codes:
+Works with 130+ central banks and tax authorities (ECB, Bank of England, Federal Reserve H.10, RBI, HMRC, US Treasury, ...). Bank codes:
 [coverage map](https://allratestoday.com/central-bank-rates-api/).
 
 ## 🏁 Install
@@ -253,7 +253,7 @@ jobs:
 
 ## 🏛️ Sources
 
-The rates come from the publishing institutions themselves, served by AllRatesToday: 121 central banks and 3 tax
+The rates come from the publishing institutions themselves, served by AllRatesToday: 130+ central banks and tax
 authorities (HMRC, US Treasury, Swiss BAZG). Each response names the bank, the publication date and the bank's own
 rate type, and nothing is blended across publishers.
 
